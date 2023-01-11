@@ -226,7 +226,8 @@ estimate_risk_roll <- function(data,
                                n_mc_samples = 1000,
                                trace = FALSE,
                                cutoff_depth = NULL,
-                               prior_resid_strategy = FALSE) {
+                               prior_resid_strategy = FALSE,
+                              solver.control = list()) {
   # Return also the total run time at the end
   start_time <- Sys.time()
   # Input checks ----------------------------------------------------------
@@ -383,7 +384,8 @@ estimate_risk_roll <- function(data,
     n_vine_train = n_vine_train,
     all_asset_names = all_asset_names,
     marginal_specs_list = marginal_specs_list,
-    trace = trace
+    trace = trace,
+    solver.control = solver.control
   )
   # extract and combine all the estimated copula data into one data.table
   combined_residuals_dt <- data.table::rbindlist(
