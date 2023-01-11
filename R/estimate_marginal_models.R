@@ -41,7 +41,8 @@ estimate_marginal_models <- function(data,
                                      n_vine_train,
                                      all_asset_names,
                                      marginal_specs_list,
-                                     trace) {
+                                     trace,
+                                    solver.control) {
   # very basic input checks as the function is internal
   checkmate::assert_data_table(data,
     any.missing = FALSE,
@@ -69,7 +70,8 @@ estimate_marginal_models <- function(data,
         data = data[data$asset == asset_name, ]$returns,
         forecast.length = n_all_obs - n_marg_train,
         refit.every = n_marg_refit, refit.window = "moving",
-        keep.coef = TRUE, solver = "hybrid"
+        keep.coef = TRUE, solver = "hybrid", 
+        solver.control = solver.control
       )
       # extract the density parameters for the window
       # [n_marg_train+1, n_all_obs]
